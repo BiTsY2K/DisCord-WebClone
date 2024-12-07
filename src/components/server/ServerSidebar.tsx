@@ -12,11 +12,12 @@ import { Separator } from "@/components/ui/separator";
 import { ServerHeader } from "@/components/server/ServerHeader";
 import { FindStartConversation } from "@/components/server/ServerSearch";
 import { ServerChannel } from "@/components/server/ServerChannel";
-import { ServerChannelSection } from "@/components/server/ServerSection";
+import { SidebarSection } from "@/components/SidebarSection";
+import { ServerMember } from "@/components/server/ServerMember";
 
 const iconMap = {
   [ChannelType.TEXT]: <Hash className="mr-2 size-4"/>,
-  [ChannelType.AUDIO]: <Speaker className="mr-2 size-4"/>,
+  [ChannelType.VOICE]: <Speaker className="mr-2 size-4"/>,
   [ChannelType.VIDEO]: <Video className="mr-2 size-4"/>,
 }
 const roleIconMap = {
@@ -43,7 +44,7 @@ export const ServerSidebar = async ({ id }: ServerSidebarProps) => {
       channels: { orderBy: { createdAt: "asc" } },
       members: { 
         include: { profile: true }, 
-        orderBy: {role: "asc"}
+        orderBy: { role: "asc" }
       }
     }
   });
@@ -53,7 +54,7 @@ export const ServerSidebar = async ({ id }: ServerSidebarProps) => {
   }
 
   const textChannels = server.channels.filter((channel: any) => channel.type === ChannelType.TEXT);
-  const voiceChannels = server.channels.filter((channel: any) => channel.type === ChannelType.AUDIO);
+  const voiceChannels = server.channels.filter((channel: any) => channel.type === ChannelType.VOICE);
   const videoChannels = server.channels.filter((channel: any) => channel.type === ChannelType.VIDEO);
 
   const members = server.members.filter((member: any) => member.profileId !== profile.id)
@@ -103,20 +104,30 @@ export const ServerSidebar = async ({ id }: ServerSidebarProps) => {
             },
           ]} />
         </div>
-        <Separator className="bg-[#3f4248] mx-auto mt-2 w-[95%]" />
+        <Separator className="bg-[#d7d8dd] dark:bg-[#3c3e44] mx-auto mt-2 w-[95%]" />
         {!!textChannels.length && (
           <React.Fragment>
-            <ServerChannelSection label={"Text Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.TEXT}/>
+            <SidebarSection label={"Text Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.TEXT}/>
             {textChannels.map((channel, _) => (
-              <ServerChannel key={_} channel={channel} server={server} />
+              <ServerChannel key={channel.id} channel={channel} server={server} />
             ))}
           </React.Fragment>
         )}
+
         {!!voiceChannels.length && (
           <React.Fragment>
-            <ServerChannelSection label={"Text Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.TEXT}/>
-            {textChannels.map((channel, _) => (
-              <ServerChannel key={_} channel={channel} server={server} />
+            <SidebarSection label={"Voice Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.VOICE}/>
+            {voiceChannels.map((channel, _) => (
+              <ServerChannel key={channel.id} channel={channel} server={server} />
+            ))}
+          </React.Fragment>
+        )}
+        
+        {!!members?.length && (
+          <React.Fragment>
+            <SidebarSection label={"Members"} role={role} sectionType={"MEMBERS"} server={server} />
+            {members.map((member) => (
+              <ServerMember key={member.id} member={member} server={server} />
             ))}
           </React.Fragment>
         )}
