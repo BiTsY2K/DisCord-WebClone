@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import googleFont, { Noto_Sans } from "next/font/google";
 import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
-import { ModalProvider } from "@/components/providers/ModalProvider";
-import { NavigationSidebar } from "@/components/navigation/nav-sidebar";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { SocketProvider } from "@/providers/SocketIOProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const notoSans = Noto_Sans({
+  display: "swap",
+  variable: "--font-noto-sans",
+  weight: ["400", "500", "600", "700"],
+  subsets: ['latin', 'latin-ext'],
+})
+
+const ggSans = localFont({
+  display: "swap",
+  variable: "--font-gg-sans",
+  src: [
+    { path: './fonts/GG/GGSans-Regular.woff', weight: '400', },
+    { path: './fonts/GG/GGSans-Medium.woff', weight: '500', },
+    { path: './fonts/GG/GGSans-Semibold.woff', weight: '600', },
+    { path: './fonts/GG/GGSans-Bold.woff', weight: '700', },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -29,13 +38,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("LAYOUT");
 
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#313338]`}
+          className={`${ggSans.variable} ${notoSans.variable} font-primary antialiased bg-white dark:bg-[#313338]`}
         >
           <ThemeProvider
             attribute="class"
@@ -44,8 +52,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <EdgeStoreProvider>
-              <ModalProvider />
-                {children}
+              <SocketProvider>
+                <ModalProvider />
+                <QueryProvider>{children}</QueryProvider>
+              </SocketProvider>
             </EdgeStoreProvider>
           </ThemeProvider>
         </body>

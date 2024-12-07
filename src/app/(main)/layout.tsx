@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationSidebar } from "@/components/navigation/nav-sidebar";
+import { NavigationSidebar } from "@/components/navigation/NavigationSidebar";
 
 export default function MainLayout({
   children,
@@ -7,11 +7,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative w-full h-svh flex">
+    <div className="relative w-svw h-svh flex flex-grow">
       <NavigationSidebar />
-      <main>
+      <div className="relative min-w-0 min-h-0 flex flex-col flex-auto overflow-hidden">
         { children }
-      </main>
+      </div>
     </div>
   );
 }
