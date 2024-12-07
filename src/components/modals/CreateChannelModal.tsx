@@ -80,7 +80,7 @@ export const CreateChannelModal = () => {
 
   return (
     <Dialog open={isOpen && type === Modal.ModalType.CREATE_CHANNEL} onOpenChange={()=>{CloseModal(); form.reset();}}>
-      <DialogContent className="max-w-md p-0" style={{ background: "#313338" }}>
+      <DialogContent className="max-w-md p-0 border-none bg-white dark:bg-[#313338] overflow-hidden">
         <DialogHeader className="pt-6 px-4 space-y-2">
           <DialogTitle className="text-2xl">Create Channel</DialogTitle>
         </DialogHeader>
@@ -166,13 +166,13 @@ export const CreateChannelModal = () => {
                           placeholder="new-channel"
                         />
                       </div>
-                    </FormControl>
-                  </FormItem>
-                )}
+                  </FormControl>
+                </FormItem>
+              )}
               />
             </div>
 
-            <DialogFooter className="p-4" style={{ background: "#2b2d31" }}>
+            <DialogFooter className="p-4 bg-[#f2f3f5] dark:bg-[#2b2d31]">
               <Button
                 type="button"
                 variant={"link"}

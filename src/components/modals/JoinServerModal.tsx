@@ -47,10 +47,10 @@ export const JoinServerModal = () => {
   return (
     <div className="">
       <Dialog open={isOpen && type === Modal.ModalType.JOIN_SERVER} onOpenChange={CloseModal}>
-        <DialogContent className="max-w-md p-0" style={{ background: "#313338" }}>
+        <DialogContent className="max-w-md p-0 border-none bg-white dark:bg-[#313338] overflow-hidden">
           <DialogHeader className="pt-6 px-4 pb-0">
-            <DialogTitle className="text-2xl text-center mt-6 mb-2">Join a Server</DialogTitle>
-            <DialogDescription className="text-center text-sm">
+            <DialogTitle className="text-2xl leading-[1.25] text-center font-bold text-[#313338] dark:text-[#dbdee1] mt-6 mb-2">Join a Server</DialogTitle>
+            <DialogDescription className="text-sm leading-[1.25] text-center text-[#4e5058] dark:text-[#b5bac1]">
               Enter an invite below to join an existing server
             </DialogDescription>
           </DialogHeader>
@@ -64,11 +64,7 @@ export const JoinServerModal = () => {
                     render={({ field }) => (
                       <FormItem>
                         <Label
-                          className="text-xs"
-                          style={{
-                            textTransform: "uppercase",
-                            fontWeight: "bold",
-                          }}
+                          className="text-xs text-[#4e5058] dark:text-[#b5bac1] uppercase font-bold"
                         >
                           Invite Link
                           <span className="text-sm" style={{ color: "#dc2626" }}>
@@ -97,15 +93,11 @@ export const JoinServerModal = () => {
                   {/* Invite link examples */}
                   <div className="flex flex-col gap-2">
                     <div
-                      className="text-xs"
-                      style={{ textTransform: "uppercase", fontWeight: "bold" }}
+                      className="text-xs text-[#4e5058] dark:text-[#b5bac1] uppercase font-bold"
                     >
                       Invites Should Look Like
                     </div>
-                    <div
-                      className="invites-types text-sm"
-                      style={{ lineHeight: 1.3 }}
-                    >
+                    <div className="invites-types text-sm leading-[1.3] text-[#060607] dark:text-[#f2f3f5]">
                       <p>hTRrAOi</p>
                       <p>https://bitscord.rr/hTRrAOi.gg</p>
                       <p>https://bitscord.rr/bits-cord</p>
@@ -119,7 +111,7 @@ export const JoinServerModal = () => {
                     className="flex justify-start gap-2 bg-transparent shadow-none"
                   >
                     <Image alt="" src="/next.svg" width={48} height={48} />
-                    <div className="flex flex-1 items-center">
+                    <div className="flex flex-1 items-center text-[#313338] dark:text-[#dbdee1]">
                       <div className="text-left" style={{ textAlign: "left" }}>
                         <div className="text-base font-semibold">
                           Don't have an Invite?
@@ -128,12 +120,12 @@ export const JoinServerModal = () => {
                           Check out Discoverable communities in Server Discovery.
                         </div>
                       </div>
-                      <ChevronRight className="min-h-6 min-w-6" />
+                      <ChevronRight className="min-h-6 min-w-6 text-[#4f5660]" />
                     </div>
                   </Button>
                 </div>
 
-                <DialogFooter className="p-4" style={{ background: "#2b2d31" }}>
+                <DialogFooter className="p-4 bg-[#f2f3f5] dark:bg-[#2b2d31]">
                   <Button
                     type="button"
                     variant={"link"}

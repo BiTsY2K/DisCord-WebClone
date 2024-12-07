@@ -3,6 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import * as Modal from "@/hooks/UseModalStore";
+import { useOrigin } from "@/hooks/UseOrigin";
 import { Check, Copy } from "lucide-react";
 import { IoSettingsSharp } from "react-icons/io5";
 
@@ -19,15 +20,16 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ActionTooltip } from "@/components/action-tooltips";
+import { ActionTooltip } from "@/components/ActionTooltips";
 
 export const InviteModal = () => {
   const { type, data, isOpen, CloseModal } = Modal.useModal();
 
   const [isCopied, setIsCopied] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  
-  const inviteURL = "https://discord.gg/EmUQCNwtRjJKmsEmUQCNwtRjJKms";
+
+  const origin = useOrigin();  
+  const inviteURL = `${origin}/invites/${data?.server?.inviteCode}`;
   const [neverExpire, setNeverExpire] = React.useState(false);
 
   const copyInviteUrl = () => {
@@ -44,8 +46,8 @@ export const InviteModal = () => {
       open={isOpen && type === Modal.ModalType.INVITE}
       onOpenChange={CloseModal}
     >
-      <DialogContent className="p-0" style={{ background: "#313338" }}>
-        <DialogHeader className="">
+      <DialogContent className="max-w-md p-0" style={{ background: "#313338" }}>
+        <DialogHeader className="pt-6 px-4 pb-0">
           <DialogTitle className="text-base">
             Invite friends to {data.server?.name}'s server
           </DialogTitle>
@@ -54,7 +56,7 @@ export const InviteModal = () => {
 
         <div className="grid gap-2 py-2 px-4">
           <Label htmlFor="invite-link" className="mb-1">
-            Share the link with others to frant access to your server!
+            Share the link with others to grant access to your server!
           </Label>
           <div className="input flex items-center justify-center text-base w-full rounded-sm bg-[#1e1f22]">
             <div className="input-wrapper flex flex-col flex-grow">
@@ -66,34 +68,36 @@ export const InviteModal = () => {
                 style={{ fontSize: "1rem", lineHeight: "1.3" }}
               />
             </div>
-            <Button
-              type="button"
-              size={"sm"}
-              disabled={isLoading}
-              onClick={copyInviteUrl}
-              className={cn(
-                "px-3 mr-1.5 rounded-sm",
-                isCopied ? "bg-emerald-500 hover:bg-emerald-500 cursor-default" : ""
-              )}
-            >
-              {isCopied ? (
-                <React.Fragment>
-                  <span className="sr-only">Copied</span>
-                  <Check />
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <span className="sr-only">Copy</span>
-                  <Copy />
-                </React.Fragment>
-              )}
-            </Button>
+            <ActionTooltip label={"Copy"} side={"bottom"} align={"center"} >
+              <Button
+                type="button"
+                size={"sm"}
+                disabled={isLoading}
+                onClick={copyInviteUrl}
+                className={cn(
+                  "px-3 mr-1.5 rounded-sm",
+                  isCopied ? "bg-emerald-500 hover:bg-emerald-500 cursor-default" : ""
+                )}
+              >
+                {isCopied ? (
+                  <React.Fragment>
+                    <span className="sr-only">Copied</span>
+                    <Check />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <span className="sr-only">Copy</span>
+                    <Copy />
+                  </React.Fragment>
+                )}
+              </Button>
+            </ActionTooltip>
           </div>
           <div className="text-xs">Your invite link expires {neverExpire ? "will never expire" : "in 7 days"}.</div>
         </div>
 
         <DialogFooter
-          className="items-center space-x-0"
+          className="items-center space-x-0 p-4"
           style={{ background: "#2b2d31" }}
         >
           <div className="w-full flex flex-grow text-center space-x-2 cursor-pointer" onClick={() => setNeverExpire(!neverExpire)}>

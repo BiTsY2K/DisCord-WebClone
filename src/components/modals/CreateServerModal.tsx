@@ -61,12 +61,12 @@ export const CreateServerModal = () => {
       open={isOpen && type === Modal.ModalType.CREATE_SERVER}
       onOpenChange={CloseModal}
     >
-      <DialogContent className="max-w-md p-0" style={{ background: "#313338" }}>
+      <DialogContent className="max-w-md p-0 border-none bg-white dark:bg-[#313338] overflow-hidden">
         <DialogHeader className="pt-6 px-4 space-y-2">
-          <DialogTitle className="text-2xl text-center">
+          <DialogTitle className="text-2xl leading-[1.25] text-center font-bold text-[#313338] dark:text-[#dbdee1]">
             Customize Your Server
           </DialogTitle>
-          <DialogDescription className="text-center text-base leading-[1.37]">
+          <DialogDescription className="text-base leading-[1.25] text-center text-[#4e5058] dark:text-[#b5bac1]">
             Give your new server a personality with a name and an icon. You can
             always change it later.
           </DialogDescription>
@@ -103,11 +103,7 @@ export const CreateServerModal = () => {
                 render={({ field }) => (
                   <FormItem>
                     <Label
-                      className="text-xs"
-                      style={{
-                        textTransform: "uppercase",
-                        fontWeight: "bold",
-                      }}
+                      className="text-xs text-[#4e5058] dark:text-[#b5bac1] uppercase font-bold"
                     >
                       Server Name
                     </Label>
@@ -124,7 +120,7 @@ export const CreateServerModal = () => {
                         placeholder="Enter your server name"
                       />
                     </FormControl>
-                    <FormDescription className="text-xs">
+                    <FormDescription className="text-xs text-[#4e5058] dark:text-[#b5bac1]">
                       By creating a server, you agree to Discord's Community
                       Guidelines.
                     </FormDescription>
@@ -133,7 +129,7 @@ export const CreateServerModal = () => {
               />
             </div>
 
-            <DialogFooter className="p-4" style={{ background: "#2b2d31" }}>
+            <DialogFooter className="p-4 bg-[#f2f3f5] dark:bg-[#2b2d31]">
               <Button
                 type="button"
                 variant={"link"}
