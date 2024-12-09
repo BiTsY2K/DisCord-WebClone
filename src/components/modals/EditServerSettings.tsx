@@ -1,5 +1,12 @@
 "use client";
 
+"use client";
+
+import React from "react";
+import { ModalType, useModal } from "@/hooks/UseModalStore";
+import { Trash2Icon } from "lucide-react";
+
+// UI components for a consistent modal design.
 import {
   DialogHeader,
   Dialog,
@@ -8,13 +15,13 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-import React from "react";
-
-import { ModalType, useModal } from "@/hooks/UseModalStore";
+// Shadcn-ui components for consistent UI appearance and designs
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { ServerOverview } from "@/components/tabs/ServerOverview";
+
 
 const settings = [
   { label: "Overview", content: "" },
@@ -26,7 +33,7 @@ const userManagementOptions = [
 ];
 
 const tabTriggerStyle = {
-  fontSize: "0.875rem",
+  fontSize: "1rem",
   lineHeight: "1.25rem",
   display: "flex",
   justifyContent: "start",
@@ -34,6 +41,7 @@ const tabTriggerStyle = {
   padding: "0.375rem 0.625rem",
   marginBottom: "0.25rem",
   borderRadius: "0.25rem",
+  boxShadow: "none"
 };
 
 const tabContentStyle = {};
@@ -49,7 +57,7 @@ export const ServerSettings = () => {
     >
       <DialogContent onInteractOutside={(e) => { e.preventDefault()}}
         className="[&>button]:hidden fixed top-0 left-0 translate-x-0 translate-y-0 max-w-full h-full p-0
-          data-[state=closed]:slide-out-to-right-0  data-[state=closed]:slide-out-to-top-0 
+          data-[state=closed]:slide-out-to-right-0 data-[state=closed]:slide-out-to-top-0 
           data-[state=open]:slide-in-from-right-0 data-[state=open]:slide-in-from-top-0"
         style={{ background: "#313338" }}
       >
@@ -59,16 +67,18 @@ export const ServerSettings = () => {
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="h-svh flex">
-          <TabsList className="sidebarRegion h-full flex flex-col flex-[1_0_calc(192px+20px+6px)] items-end rounded-none bg-[#2b2d31]">
+          {/* Tab List - Modal Side Navigation */}
+          <TabsList className="sidebarRegion h-full flex flex-col flex-[1_0_calc(192px+20px+6px)] items-end rounded-none bg-[#f2f3f5] dark:bg-[#2b2d31]">
             <div className="flex flex-auto justify-end w-full h-full items-start">
               <ScrollArea className=" ">
                 <div className="h-full w-[calc(192px+20px+6px)] py-[60px] pr-1.5 pl-5">
+                  {/* Tab Header */}
                   <div
                     tabIndex={-1}
-                    className="text-ellipsis whitespace-nowrap overflow-hidden flex-shrink-0 cursor-default py-1.5 px-2.5"
+                    className="text-ellipsis align-baseline whitespace-nowrap overflow-hidden flex-shrink-0 cursor-default py-1.5 px-2.5"
                   >
-                    <div className="text-xs font-bold uppercase text-ellipsis whitespace-nowrap overflow-hidden flex-shrink-0">
-                      BITS DEVELOPEMENT'S SERVER
+                    <div className="text-xs text-[#5c5e66] dark:text-[#878986] leading-[12px] tracking-[0.02em] font-bold uppercase text-ellipsis whitespace-nowrap overflow-hidden flex-shrink-0">
+                      {server?.name}
                     </div>
                   </div>
 
@@ -76,12 +86,15 @@ export const ServerSettings = () => {
                   <TabsTrigger
                     tabIndex={0}
                     value="overview"
-                    className="hover:bg-[#404249]"
+                    className="text-base leading-5 font-medium data-[state=active]:cursor-default data-[state=active]:shadow-none 
+                      text-[#5c5e66] dark:text-[#b5bac1] hover:text-[#313338] dark:hover:text-[#dbdee1] hover:bg-[#dfe0e3] dark:hover:bg-[#383a40]
+                      data-[state=active]:dark:text-white data-[state=active]:dark:bg-[#404249]
+                    "
                     style={tabTriggerStyle}
                   >
                     Overview
                   </TabsTrigger>
-                  <Separator className="my-2 bg-[#525458]" />
+                  <Separator className="mb-1.5 mt-3 bg-[#d7d8dd] dark:bg-[#3c3e44]" />
 
                   {/* User Management */}
                   <div
@@ -98,53 +111,42 @@ export const ServerSettings = () => {
                         key={_}
                         tabIndex={0}
                         value={option.label.toLowerCase()}
-                        className="hover:bg-[#404249]"
+                        className="text-base leading-5 font-medium data-[state=active]:cursor-default data-[state=active]:shadow-none 
+                        text-[#5c5e66] dark:text-[#b5bac1] hover:text-[#313338] dark:hover:text-[#dbdee1] hover:bg-[#dfe0e3] dark:hover:bg-[#383a40]
+                        data-[state=active]:dark:text-white data-[state=active]:dark:bg-[#404249]
+                        "
                         style={tabTriggerStyle}
                       >
                         {option.label}
                       </TabsTrigger>
                     ))}
                   </React.Fragment>
-                  <Separator className="my-2 bg-[#525458]" />
+                  <Separator className="mb-1.5 mt-3 bg-[#d7d8dd] dark:bg-[#3c3e44]" />
 
-                  {/* Delete Server */}
-                  <div
+                  {/* Delete Server Button */}
+                  <Button
+                    variant={"ghost"}
                     tabIndex={0}
                     className="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background 
                         transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
                         disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow cursor-pointer 
-                        hover:bg-[#404249]"
+                        text-[#5c5e66] dark:text-[#b5bac1] hover:text-[#313338] dark:hover:text-[#dbdee1] hover:bg-[#dfe0e3] dark:hover:bg-[#383a40]"
                     style={tabTriggerStyle}
-                    onClick={() => OpenModal(ModalType.DELETE_SERVER, { server })}
+                    onClick={() =>
+                      OpenModal(ModalType.DELETE_SERVER, { server })
+                    }
                   >
                     <div className="flex flex-1">Delete Server</div>
-                    <span className="h-4 w-4 ml-auto">
-                      <svg
-                        aria-hidden="true"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M14.25 1c.41 0 .75.34.75.75V3h5.25c.41 0 .75.34.75.75v.5c0 .41-.34.75-.75.75H3.75A.75.75 0 0 1 3 4.25v-.5c0-.41.34-.75.75-.75H9V1.75c0-.41.34-.75.75-.75h4.5Z"
-                        ></path>
-                        <path
-                          fill="currentColor"
-                          fillRule="evenodd"
-                          d="M5.06 7a1 1 0 0 0-1 1.06l.76 12.13a3 3 0 0 0 3 2.81h8.36a3 3 0 0 0 3-2.81l.75-12.13a1 1 0 0 0-1-1.06H5.07ZM11 12a1 1 0 1 0-2 0v6a1 1 0 1 0 2 0v-6Zm3-1a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1Z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                    </span>
-                  </div>
+                    <Trash2Icon className="h-4 w-4 ml-auto" />
+                  </Button>
                 </div>
               </ScrollArea>
             </div>
           </TabsList>
-          <div className="contentRegion relative flex flex-[1_1_800px] items-start bg-[#313338]">
-            <ScrollArea className="h-full flex items-start overflow-x-hidden">
+
+          {/* Tab Contents - Modal Contents */}
+          <div className="contentRegion relative flex flex-[1_1_800px] items-start bg-white dark:bg-[#313338]">
+            <ScrollArea className="h-full w-full flex items-start overflow-x-hidden">
               <TabsContent value="overview" tabIndex={-1}>
                 <div className="relative px-10 pt-[60px] pb-20 flex-auto max-w-[740px] min-w-[460px] min-h-full focus-visible:ring-offset-0 ">
                   <ServerOverview server={data.server}/>
