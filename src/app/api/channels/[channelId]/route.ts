@@ -30,7 +30,7 @@ export async function DELETE(
     const { channelId } = await params;
     if (!channelId)
       return new NextResponse("Missing Channel Id.", { status: 400 });
-
+console.log("before serverupdate");
     // Updates the server by verifying the user has appropriate roles (ADMIN or MODERATOR), 
     // then deletes a specific channel (except the 'general' channel) by its ID.
     const server = await db.server.update({
@@ -56,6 +56,7 @@ export async function DELETE(
         },
       },
     });
+console.log("after serverupdate");
     
     // Returns the updated server details as a JSON response.
     return NextResponse.json(server);

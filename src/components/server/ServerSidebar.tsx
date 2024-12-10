@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 import { ServerHeader } from "@/components/server/ServerHeader";
-import { FindStartConversation } from "@/components/server/ServerSearch";
+import { FindStartConversation } from "@/components/SidebarSearch";
 import { ServerChannel } from "@/components/server/ServerChannel";
 import { SidebarSection } from "@/components/SidebarSection";
 import { ServerMember } from "@/components/server/ServerMember";
@@ -105,18 +105,19 @@ export const ServerSidebar = async ({ id }: ServerSidebarProps) => {
           ]} />
         </div>
         <Separator className="bg-[#d7d8dd] dark:bg-[#3c3e44] mx-auto mt-2 w-[95%]" />
+        
+          <SidebarSection label={"Text Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.TEXT}/>
         {!!textChannels.length && (
           <React.Fragment>
-            <SidebarSection label={"Text Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.TEXT}/>
             {textChannels.map((channel, _) => (
               <ServerChannel key={channel.id} channel={channel} server={server} />
             ))}
           </React.Fragment>
         )}
 
+        <SidebarSection label={"Voice Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.VOICE}/>
         {!!voiceChannels.length && (
           <React.Fragment>
-            <SidebarSection label={"Voice Channels"} role={role} sectionType={"CHANNELS"} channelType={ChannelType.VOICE}/>
             {voiceChannels.map((channel, _) => (
               <ServerChannel key={channel.id} channel={channel} server={server} />
             ))}

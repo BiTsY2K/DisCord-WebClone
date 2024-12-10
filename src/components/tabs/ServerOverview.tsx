@@ -8,15 +8,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { LucideImagePlus } from "lucide-react";
 
-import FileUpload from "../FileUpload";
 import { SingleImageDropzone } from "../SingleImageDropZone";
 import { Form, FormControl, FormDescription, FormField, FormItem } from "../ui/form";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Server } from "@prisma/client";
-import { ModalData, useModal } from "@/hooks/UseModalStore";
 import { useEdgeStore } from "@/lib/edgestore";
 
 const formSchema = zod.object({

@@ -7,6 +7,8 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "../ActionTooltips";
 
+import * as Modal from "@/hooks/UseModalStore"; 
+
 const iconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.VOICE]: Mic,
@@ -21,9 +23,12 @@ interface ServerChannelProps {
 
 export const ServerChannel = ({
   channel,
-  role,
   server,
+  role,
 }: ServerChannelProps) => {
+
+  const { OpenModal } = Modal.useModal();
+
   const router = useRouter();
   const params = useParams();
 
@@ -66,6 +71,7 @@ export const ServerChannel = ({
             <span
               onClick={(e) => {
                 e.stopPropagation();
+                OpenModal(Modal.ModalType.CHANNEL_SETTINGS, { channel, server });
               }}
             >
               <Settings className="min-h-4 min-w-4" />

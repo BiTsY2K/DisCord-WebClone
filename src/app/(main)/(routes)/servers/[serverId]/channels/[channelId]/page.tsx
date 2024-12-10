@@ -33,13 +33,12 @@ const Channel = async ({ params }: ChannelProps) => {
       />
       <div className="relative min-w-0 min-h-0 flex flex-auto items-stretch justify-stretch">
           {channel.type === ChannelType.TEXT && (
-            
             <main className="relative flex flex-auto flex-col min-w-0 min-h-0">
               <ChatMessages
                 name={channel.name}
                 chatId={channel.id}
                 member={member}
-                type="CHANNEL"
+                type={"CHANNEL"}
                 apiURL="/api/messages"
                 socketUrl="/api/socket/messages"
                 socketQuery={{
@@ -61,6 +60,10 @@ const Channel = async ({ params }: ChannelProps) => {
               />
             </main>
           )}
+          {/*  */}
+          <div className="ralative min-w-0 min-h-0 flex flex-auto items-stretch justify-items-stretch">
+
+          </div>
       </div>
     </>
   );

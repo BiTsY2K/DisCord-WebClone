@@ -15,6 +15,7 @@ import { DeleteMessageModal } from "@/components/modals/DeleteMessageModal";
 
 import { ServerSettings } from "@/components/modals/EditServerSettings";
 import { ChannelSettings } from "@/components/modals/EditChannelSettings";
+import { LeaveServerModal } from "@/components/modals/LeaveServerModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -27,6 +28,7 @@ export const ModalProvider = () => {
       <AddServerModal />
       <CreateServerModal />
       <JoinServerModal />
+      <LeaveServerModal />
       <InviteModal />
       <ServerSettings />
       <ChannelSettings />
