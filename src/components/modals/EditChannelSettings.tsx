@@ -46,7 +46,7 @@ export const ChannelSettings = () => {
       onOpenChange={CloseModal}
     >
       <DialogContent
-        onInteractOutside={(e) => {
+        onInteractOutdirection={(e) => {
           e.preventDefault();
         }}
         className="[&>button]:hidden fixed top-0 left-0 translate-x-0 translate-y-0 max-w-full h-full p-0

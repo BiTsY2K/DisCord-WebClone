@@ -3,7 +3,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Profile } from "@prisma/client";
 import { Button } from "./ui/button";
-import { RiSettings5Fill } from "react-icons/ri";
+import { IoSettingsSharp } from "react-icons/io5";
+import { FaHeadphones } from "react-icons/fa6";
+import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import { ActionTooltip } from "./ActionTooltips";
 
 import * as Modal from "@/hooks/UseModalStore";
@@ -18,12 +20,15 @@ export const UserPanel = ({
 
   const { OpenModal } = Modal.useModal();
 
+  /* 
+  section: relative h-[3.249rem] flex flex-shrink-0 items-center px-2 py-0.5 
+  */
   return (
     <section
-      className="panel relative h-[3.312rem] flex flex-shrink-0 items-center px-2 py-1 bg-[#ededef] dark:bg-[#232428]"
+      className="panels flex-[0_0_auto] bg-[#ededef] dark:bg-[#232428]"
       aria-label="User Area"
     >
-      <div className="relative h-full min-w-full flex items-center flex-auto">
+      <div className="container relative h-[3.249rem] flex flex-shrink-0 items-center px-2 py-0.5 text-sm font-medium">
         <div
           tabIndex={0}
           role="button"
@@ -42,7 +47,7 @@ export const UserPanel = ({
             </div>
           </div>
           {/* User Name */}
-          <div className="name-tag min-w-0 flex-grow select-text py-1">
+          <div className="name-tag min-w-0 flex-grow select-text py-1 mr-1">
             <div className="panelTitle text-[#060607] dark:text-[#f2f3f5] text-sm 
               whitespace-nowrap text-ellipsis overflow-hidden font-medium">
               {userprofile?.name}
@@ -56,10 +61,10 @@ export const UserPanel = ({
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-start items-stretch flex-auto grow-0">
+        <div className="flex flex-row-reverse justify-start items-stretch flex-auto grow-0">
           <ActionTooltip
             label={"User Settings"}
-            side={"top"}
+            direction={"top"}
             align={"center"}
             sideOffset={8}
           >
@@ -72,7 +77,49 @@ export const UserPanel = ({
             >
               <div className="flex w-5 h-5 text-[#4e5058] dark:text-[#949ba4]"
                 onClick={() => { OpenModal(Modal.ModalType.USER_SETTINGS) }}>
-                <RiSettings5Fill className="min-h-5 min-w-5 group-hover:rotate-45 transition-transform duration-500" />
+                <IoSettingsSharp className="min-h-5 min-w-5 group-hover:rotate-45 transition-transform duration-500" />
+              </div>
+            </Button>
+          </ActionTooltip>
+
+          {/* HeadPhone */}
+          <ActionTooltip
+            label={"User Settings"}
+            direction={"top"}
+            align={"center"}
+            sideOffset={8}
+          >
+            <Button
+              type="button"
+              variant={"ghost"}
+              size={"icon"}
+              aria-label="User Settings"
+              className="group max-h-8 max-w-8"
+            >
+              <div className="flex w-5 h-5 text-[#4e5058] dark:text-[#949ba4]"
+                onClick={() => { OpenModal(Modal.ModalType.USER_SETTINGS) }}>
+                <FaHeadphones className="min-h-5 min-w-5 transition-transform duration-500" />
+              </div>
+            </Button>
+          </ActionTooltip>
+
+          {/* Microphone */}
+          <ActionTooltip
+            label={"User Settings"}
+            direction={"top"}
+            align={"center"}
+            sideOffset={8}
+          >
+            <Button
+              type="button"
+              variant={"ghost"}
+              size={"icon"}
+              aria-label="User Settings"
+              className="group max-h-8 max-w-8"
+            >
+              <div className="flex w-5 h-5 text-[#4e5058] dark:text-[#949ba4]"
+                onClick={() => { OpenModal(Modal.ModalType.USER_SETTINGS) }}>
+                <BiSolidMicrophoneOff className="min-h-5 min-w-5 transition-transform duration-500" />
               </div>
             </Button>
           </ActionTooltip>

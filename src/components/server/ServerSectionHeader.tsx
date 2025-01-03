@@ -14,7 +14,7 @@ interface SidebarSectionProps {
   server?: Server;
 }
 
-export const SidebarSection = ({
+export const ServerSectionHeader = ({
   label,
   role,
   sectionType,
@@ -31,7 +31,7 @@ export const SidebarSection = ({
             {label}
         </div>
         {role != MemberRole.GUEST && sectionType === "CHANNELS" && (
-          <ActionTooltip label={"Create Channel"} side={"top"} align={"center"} sideOffset={4}>
+          <ActionTooltip label={"Create Channel"} direction={"top"} align={"center"} sideOffset={4}>
             <Button type="button" variant={"ghost"} size={"icon"}
               className="peer text-[#5c5e66] dark:text-[#949ba4] hover:bg-transparent"
               onClick={() => OpenModal(Modal.ModalType.CREATE_CHANNEL)}

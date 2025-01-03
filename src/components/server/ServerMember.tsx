@@ -24,7 +24,6 @@ export const ServerMember = ({ member, server }: ServerMemberProps) => {
   const router = useRouter();
 
   const icon = roleIconMap[member.role];
-  console.log(member);
 
   return (
     <div className="mx-2 my-[1px]">

@@ -7,7 +7,7 @@ interface ServerProps {
   params: {serverId: string}
 }
 
-const Server = async ({ params }: ServerProps) => {
+const ServerLayoutPage = async ({ params }: ServerProps) => {
   const profile = await currentProfile();
   if (!profile) return redirect("/sign-in");
 
@@ -30,9 +30,6 @@ const Server = async ({ params }: ServerProps) => {
   if (initialChannel?.name !== "general") return null;
   
   return redirect(`/servers/${serverId}/channels/${initialChannel?.id}`)
-  // (
-  //   <div className="">Server Id Page</div>
-  // )
 }
 
-export default Server
+export default ServerLayoutPage

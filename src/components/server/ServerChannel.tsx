@@ -26,13 +26,11 @@ export const ServerChannel = ({
   server,
   role,
 }: ServerChannelProps) => {
-
-  const { OpenModal } = Modal.useModal();
-
   const router = useRouter();
   const params = useParams();
-
-  const Icon = iconMap[channel.type];
+  
+  const { OpenModal } = Modal.useModal();
+  const ChannelIcon = iconMap[channel.type];
 
   return (
     <div className="mx-2 my-[1px]">
@@ -47,7 +45,7 @@ export const ServerChannel = ({
           router.push(`/servers/${params?.serverId}/channels/${channel.id}`)
         }
       >
-        <Icon className="min-h-5 min-w-5 flex flex-shrink-0 text-[#6d6f78] dark:text-[#80848e]" />
+        <ChannelIcon className="min-h-5 min-w-5 flex flex-shrink-0 text-[#6d6f78] dark:text-[#80848e]" />
         <p
           className={cn(
             "text-base font-semibold text-left text-ellipsis min-w-0 whitespace-nowrap overflow-hidden text-[#5c5e66] dark:text-[#949ba4] flex-auto",
@@ -64,7 +62,7 @@ export const ServerChannel = ({
         >
           <ActionTooltip
             label="Edit Channel"
-            side={"top"}
+            direction={"top"}
             align={"center"}
             sideOffset={12}
           >
@@ -80,7 +78,7 @@ export const ServerChannel = ({
 
           <ActionTooltip
             label="Create Invite"
-            side={"top"}
+            direction={"top"}
             align={"center"}
             sideOffset={12}
           >

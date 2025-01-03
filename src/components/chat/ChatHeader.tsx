@@ -21,7 +21,7 @@ export const ChatHeader = ({
     <div className="relative flex flex-col">
       <section className="relative flex flex-col justify-center min-w-0 w-full min-h-12 flex-auto p-2 text-base cursor-defaults shadow-md">
         <div className="relative flex grow flex-auto items-center min-w-0 h-full overflow-hidden font-semibold cursor-default">
-          <MobileToggle serverId={serverId} />
+          {/* <MobileToggle serverId={serverId} /> */}
           {type === "CHANNEL" && (<Hash className="min-w-6 min-h-6 ml-2 mr-3 text-[#6d6f78]" />)}
           {type === "CONVERSATION" && (<UserAvatar alt={""} srcURL={imageURL} className="h-6 w-6 ml-2 mr-3"/> )}
           <h1 className={cn(

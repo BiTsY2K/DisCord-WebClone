@@ -9,13 +9,13 @@ import { ChatHeaderSearchBar as HeaderSearchBar } from "@/components/chat/ChatHe
 export const ChatHeaderActionBar = () => {
   return (
     <div className="flex items-center">
-      <ActionTooltip label={"Notification Settings"} side={"bottom"}>
+      <ActionTooltip label={"Notification Settings"} direction={"bottom"}>
         <IoNotifications tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
-      <ActionTooltip label={"Pinned Messages"} side={"bottom"}><TiPin tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
-      <ActionTooltip label={"Memeber List"} side={"bottom"}><HiUsers tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
+      <ActionTooltip label={"Pinned Messages"} direction={"bottom"}><TiPin tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
+      <ActionTooltip label={"Memeber List"} direction={"bottom"}><HiUsers tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
       <SocketIndicator />
       <HeaderSearchBar />
-      <ActionTooltip label={"Help"} side={"bottom"}><IoHelpCircle tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
+      <ActionTooltip label={"Help"} direction={"bottom"}><IoHelpCircle tabIndex={0} className="h-6 w-6 mx-2 cursor-pointer" /></ActionTooltip>
     </div>
   );
 }

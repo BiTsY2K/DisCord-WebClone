@@ -51,7 +51,7 @@ export const UserSettings = () => {
       open={isOpen && type === ModalType.USER_SETTINGS}
       onOpenChange={() => { CloseModal() }}
     >
-      <DialogContent onInteractOutside={(e) => { e.preventDefault() }}
+      <DialogContent onInteractOutdirection={(e) => { e.preventDefault() }}
         className="[&>button]:hidden fixed top-0 left-0 translate-x-0 translate-y-0 max-w-full h-full p-0
           data-[state=closed]:slide-out-to-right-0 data-[state=closed]:slide-out-to-top-0 
           data-[state=open]:slide-in-from-right-0 data-[state=open]:slide-in-from-top-0"

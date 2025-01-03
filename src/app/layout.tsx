@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import googleFont, { Noto_Sans } from "next/font/google";
 import "./globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
@@ -45,19 +45,24 @@ export default function RootLayout({
         <body
           className={`${ggSans.variable} ${notoSans.variable} font-primary antialiased bg-white dark:bg-[#313338]`}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <EdgeStoreProvider>
-              <SocketProvider>
-                <ModalProvider />
-                <QueryProvider>{children}</QueryProvider>
-              </SocketProvider>
-            </EdgeStoreProvider>
-          </ThemeProvider>
+          <ClerkLoading>
+            <div className="flex justify-center items-center h-dvh">Loading...</div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <EdgeStoreProvider>
+                <SocketProvider>
+                  <ModalProvider />
+                  <QueryProvider>{children}</QueryProvider>
+                </SocketProvider>
+              </EdgeStoreProvider>
+            </ThemeProvider>
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>

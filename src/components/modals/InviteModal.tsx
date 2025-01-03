@@ -90,7 +90,7 @@ export const InviteModal = () => {
                 style={{ fontSize: "1rem", lineHeight: "1.3" }}
               />
             </div>
-            <ActionTooltip label={"Copy"} side={"top"} align={"center"} >
+            <ActionTooltip label={"Copy"} direction={"top"} align={"center"} >
               <Button
                 type="button"
                 size={"sm"}

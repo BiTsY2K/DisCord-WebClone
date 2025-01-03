@@ -3,38 +3,36 @@
 import Image from "next/image";
 
 import { ActionTooltip } from "@/components/ActionTooltips";
-import Link from "next/link";
-import { FaDiscord } from "react-icons/fa6";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 interface NavigationItem {
   id: string;
-  image: string;
+  imageSrc?: string;
   label: string;
+  IconImage?: React.ReactNode;
 }
 
-export const NavigationItem = ({ id, image, label }: NavigationItem) => {
+export const NavigationItem = ({ id, imageSrc, label, IconImage }: NavigationItem) => {
   const params = useParams();
   const router = useRouter();
 
   return (
-    <ActionTooltip side="right" align="center" label={label} sideOffset={16}>
+    <ActionTooltip direction="right" align="center" label={label} sideOffset={16}>
       <div
         className="group/listItem"
-        onClick={() => router.push(`/servers/${id}`)}
+        onClick={() => router.push(`/servers/${id === '@me' ? 'me' : id}`)}
       >
         <div className="listItemWrapper peer">
             <div
               className={cn(
                 "wrapper relative w-[3rem] h-[3rem] flex items-center justify-center bg-[#313338] rounded-full overflow-hidden group-hover/listItem:rounded-2xl cursor-pointer",
-                params?.serverId === id
+                (params?.serverId === id || id === '@me')
                   ? "bg-primary text-primary-foreground rounded-2xl"
                   : ""
               )}
             >
-              {/* <FaDiscord className="min-h-[2rem] min-w-[2rem]"/> */}
-              <Image fill src={image} alt="Channel" />
+              {imageSrc ? <Image fill src={imageSrc} alt={label} /> : IconImage }
             </div>
         </div>
 
