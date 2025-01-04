@@ -126,7 +126,7 @@ export const InviteModal = () => {
               Set this link to never expire
             </label>
           </div>
-          <ActionTooltip label="Link Settings" side="top" align="center">
+          <ActionTooltip label="Link Settings" direction="top" align="center">
             <Button type="button" variant={"ghost"} size={"icon"} className="size-8 text-[#80848e] ">
               <IoSettingsSharp className="min-w-6 min-h-6" />
             </Button>
