@@ -1,35 +1,33 @@
-import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
-import { redirect } from "next/navigation";
-import React from "react";
+"use client"
+
+import { useEffect } from "react";
+import { Prisma, Profile } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 interface ServerProps {
-  params: {serverId: string}
+  children: React.ReactNode,
+  userProfile: Profile,
+  server: Prisma.ServerGetPayload<{
+    include: {
+      members: { include: { profile: true } },
+      channels: true,
+    };
+  }>,
 }
 
-const ServerLayoutPage = async ({ params }: ServerProps) => {
-  const profile = await currentProfile();
-  if (!profile) return redirect("/sign-in");
+const ServerLayoutPage = ({ children, userProfile, server }: ServerProps) => {
+  const router = useRouter();
 
-  const { serverId } = await params;
+  useEffect(() => {
+    const initialChannel = server?.channels.find((channel) => channel.name === "general");
+    if (initialChannel) router.push(`/servers/${server.id}/channels/${initialChannel.id}`);
+  }, [server?.id, server?.channels, router]);
 
-  const server = await db.server.findUnique({
-    where: {
-      id: serverId,
-      members: { some: { profileId: profile.id } }
-    },
-    include: {
-      channels: {
-        where: { name: "general" },
-        orderBy: {createdAt: "asc"}
-      }
-    }
-  });
-
-  const initialChannel = server?.channels[0];
-  if (initialChannel?.name !== "general") return null;
-  
-  return redirect(`/servers/${serverId}/channels/${initialChannel?.id}`)
+  return (
+    <div className="relative min-w-0 min-h-0 flex flex-col flex-auto overflow-hidden">
+      {children}
+    </div>
+  )
 }
 
 export default ServerLayoutPage

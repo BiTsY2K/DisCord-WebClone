@@ -1,13 +1,14 @@
+import React from "react";
 import { db } from "@/lib/db";
 import { currentProfile } from "@/lib/current-profile"
 import { redirect } from "next/navigation";
 import { ServerSidebar } from "@/components/server/ServerSidebar";
-import React from "react";
+import ServerLayoutPage from "@/app/(main)/(routes)/servers/[serverId]/page";
 
-export default async function ServerLayout ({
+export default async function ServerLayout({
   children,
   params
-}:{
+}: {
   children: React.ReactNode,
   params: { serverId: string }
 }) {
@@ -21,7 +22,7 @@ export default async function ServerLayout ({
       members: { some: { profileId: profile.id } },
     },
     include: {
-      members:  { include: { profile: true }, orderBy: { role: "asc" }},
+      members: { include: { profile: true }, orderBy: { role: "asc" } },
       channels: { orderBy: { createdAt: "asc" } },
     },
   });
@@ -29,13 +30,11 @@ export default async function ServerLayout ({
   if (!server) {
     return redirect("/");
   }
-  
+
   return (
     <React.Fragment>
-      <ServerSidebar id={serverId} server={server} userProfile={profile}/>
-      <div className="relative min-w-0 min-h-0 flex flex-col flex-auto overflow-hidden">
-        { children }
-      </div>
+      <ServerSidebar id={serverId} server={server} userProfile={profile} />
+      <ServerLayoutPage userProfile={profile} server={server}>{children}</ServerLayoutPage>
     </React.Fragment>
   )
 }
